@@ -6,7 +6,7 @@ export const usersGetAll = (req, res) => {
 
     const client = new Client({connectionString})
     client.connect()    
-    client.query("select * from persons", (err, results) => {
+    client.query("select id, name, age, gender from persons", (err, results) => {
         if (err) {
             client.end()
             res.status(500).send(err)
@@ -19,11 +19,13 @@ export const usersGetAll = (req, res) => {
 }
 
 export const userCreate = (req, res) => {
-    const {name, age, gender} = req.body
+    const {name, age, gender, password} = req.body
     const client = new Client({connectionString})
-    client.connect()    
-    client.query(`insert into persons(name, age, gender) values(${name}, ${age}, ${gender})`, (err, results) => {
+    client.connect()  
+    
+    client.query(`insert into persons (name, age, gender, password) values ('${name}', '${age}', '${gender}', '${password}')`, (err, results) => {
         if (err) {
+            console.log(err)  
             client.end()
             res.status(500).send(err)
         } else { 
@@ -35,10 +37,10 @@ export const userCreate = (req, res) => {
 }
 
 export const userDel = (req, res) => {
-    const { name } = req.body
+    const { id } = req.body
     const client = new Client({connectionString})
     client.connect()    
-    client.query(`delete from persons where name=${name}`, (err, results) => {
+    client.query(`delete from persons where id=${id}`, (err, results) => {
         if (err) {
             client.end()
             res.status(500).send(err)
