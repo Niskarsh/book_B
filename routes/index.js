@@ -1,6 +1,7 @@
 import { Router } from 'express'
-import authRoutes from './authentication.routes'
-import { authCORS } from '../controllers/authentication.controller'
+// import authRoutes from './authentication.routes'
+// import { authCORS } from '../controllers/authentication.controller'
+import userRoutes from './user.routes'
 
 const router = Router()
 
@@ -9,7 +10,8 @@ router.get('/', (req, res) => {
 })
 
 // router.use('/api', authCORS)
-router.use('/api/auth', authRoutes)
+// router.use('/api/auth', authRoutes)
+router.use('/api/users', userRoutes)
 
 export default router
 
